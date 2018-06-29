@@ -1,5 +1,11 @@
 # Berlioz FlashBag
 
+[![Latest Version](https://img.shields.io/packagist/v/berlioz/flash-bag.svg?style=flat-square)](https://github.com/BerliozFramework/FlashBag/releases)
+[![Software license](https://img.shields.io/github/license/BerliozFramework/FlashBag.svg?style=flat-square)](https://github.com/BerliozFramework/FlashBag/blob/develop/LICENSE)
+[![Build Status](https://img.shields.io/travis/BerliozFramework/FlashBag/master.svg?style=flat-square)](https://travis-ci.org/BerliozFramework/FlashBag)
+[![Quality Grade](https://img.shields.io/codacy/grade/9f0ac8ab057549ce95d0dda7d29fa909/master.svg?style=flat-square)](https://www.codacy.com/app/ElGigi/FlashBag)
+[![Total Downloads](https://img.shields.io/packagist/dt/berlioz/flash-bag.svg?style=flat-square)](https://packagist.org/packages/berlioz/flash-bag)
+
 **Berlioz FlashBag** is a PHP library to manage flash messages to showed to the user.
 
 
