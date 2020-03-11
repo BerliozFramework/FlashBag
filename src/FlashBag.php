@@ -10,9 +10,12 @@
  * file that was distributed with this source code, to the root.
  */
 
+declare(strict_types=1);
+
 namespace Berlioz\FlashBag;
 
-use \Countable;
+use Countable;
+use Exception;
 
 /**
  * FlashBag class manage flash messages to showed to the user.
@@ -20,15 +23,15 @@ use \Countable;
  * When a message is retrieved from stack, he is deleted from stack and can't be reused.
  *
  * @package Berlioz\FlashBag
- * @see     \Countable
+ * @see \Countable
  */
 class FlashBag implements Countable
 {
-    const TYPE_INFO = 'info';
-    const TYPE_SUCCESS = 'success';
-    const TYPE_WARNING = 'warning';
-    const TYPE_ERROR = 'error';
-    const SESSION_KEY = '_BERLIOZ_FLASH_BAG';
+    public const TYPE_INFO = 'info';
+    public const TYPE_SUCCESS = 'success';
+    public const TYPE_WARNING = 'warning';
+    public const TYPE_ERROR = 'error';
+    protected const SESSION_KEY = '_BERLIOZ_FLASH_BAG';
     /** @var array[string[]] List of messages */
     private $messages;
 
@@ -37,22 +40,23 @@ class FlashBag implements Countable
      *
      * Only one instance of FlashBag can be instanced.
      * An fatal error occur if an new FlashBag class is instanced.
+     *
+     * @throws \Exception if sessions are disabled
      */
     public function __construct()
     {
         if (session_status() == PHP_SESSION_DISABLED) {
-            trigger_error('To use FlashBag class, you must be active sessions', E_USER_ERROR);
-        } else {
-            // Start session if doesn't exists
-            if (session_status() == PHP_SESSION_NONE && !headers_sent()) {
-                session_start();
-            }
+            throw new Exception('To use FlashBag class, you must be active sessions');
+        }
 
-            if (isset($_SESSION[self::SESSION_KEY]) && is_array($_SESSION[self::SESSION_KEY])) {
-                $this->messages = $_SESSION[self::SESSION_KEY];
-            } else {
-                $this->messages = [];
-            }
+        // Start session if doesn't exists
+        if (session_status() == PHP_SESSION_NONE && !headers_sent()) {
+            session_start();
+        }
+
+        $this->messages = [];
+        if (isset($_SESSION[self::SESSION_KEY]) && is_array($_SESSION[self::SESSION_KEY])) {
+            $this->messages = $_SESSION[self::SESSION_KEY];
         }
     }
 
@@ -88,38 +92,35 @@ class FlashBag implements Countable
      *
      * @return string[] List of messages
      */
-    public function get($type)
+    public function get(string $type)
     {
-        if (isset($this->messages[$type])) {
-            $messages = $this->messages[$type];
-
-            // Clear messages
-            $this->clear($type);
-
-            return $messages;
-        } else {
+        if (!isset($this->messages[$type])) {
             return [];
         }
+
+        $messages = $this->messages[$type];
+
+        // Clear messages
+        $this->clear($type);
+
+        return $messages;
     }
 
     /**
      * Add new message in flash bag.
      *
-     * @param string $type    Type of message
+     * @param string $type Type of message
      * @param string $message Message
+     * @param array $args
      *
      * @return static
      */
-    public function add($type, $message): FlashBag
+    public function add(string $type, string $message, ...$args): FlashBag
     {
-        if (is_string($type) && is_string($message)) {
-            $this->messages[$type][] = $message;
+        $this->messages[$type][] = sprintf($message, ...$args);
 
-            // Save into session
-            $this->saveToSession();
-        } else {
-            trigger_error('FlashBag::add() accept only string parameters', E_USER_ERROR);
-        }
+        // Save into session
+        $this->saveToSession();
 
         return $this;
     }
@@ -131,14 +132,13 @@ class FlashBag implements Countable
      *
      * @return static
      */
-    public function clear($type = null): FlashBag
+    public function clear(?string $type = null): FlashBag
     {
-        if (is_null($type)) {
+        if (null === $type) {
             $this->messages = [];
-        } else {
-            if (isset($this->messages[$type])) {
-                unset($this->messages[$type]);
-            }
+        }
+        if (null !== $type && array_key_exists($type, $this->messages)) {
+            unset($this->messages[$type]);
         }
 
         // Save into session
