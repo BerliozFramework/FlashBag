@@ -21,7 +21,7 @@ $ composer require berlioz/flash-bag
 
 ### Dependencies
 
-* **PHP** >= 7.1
+* **PHP** ^7.1 || ^8.0
 
 
 ## Usage
