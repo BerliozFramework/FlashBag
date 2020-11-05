@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning] (http://semver.org/).
 For change log format, use [Keep a Changelog] (http://keepachangelog.com/).
 
+## [1.2.0] - 2020-05-11
+### Added
+- PHP 8 compatibility in `composer.json`
+
 ## [1.1.0] - 2020-03-11
 ### Added
 - FlashBag::add() method accept arguments like sprintf() function
