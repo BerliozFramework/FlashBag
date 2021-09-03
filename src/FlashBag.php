@@ -39,9 +39,9 @@ class FlashBag implements Countable
      * FlashBag constructor.
      *
      * Only one instance of FlashBag can be instanced.
-     * An fatal error occur if an new FlashBag class is instanced.
+     * A fatal error occur if a new FlashBag class is instanced.
      *
-     * @throws \Exception if sessions are disabled
+     * @throws Exception if sessions are disabled
      */
     public function __construct()
     {
@@ -65,7 +65,7 @@ class FlashBag implements Countable
      *
      * @return int
      */
-    public function count()
+    public function count(): int
     {
         return count($this->messages, COUNT_RECURSIVE) - count($this->messages);
     }
@@ -75,7 +75,7 @@ class FlashBag implements Countable
      *
      * @return string[] List of messages
      */
-    public function all()
+    public function all(): array
     {
         $messages = $this->messages;
 
@@ -128,7 +128,7 @@ class FlashBag implements Countable
     /**
      * Clear messages in flash bag.
      *
-     * @param string $type Type of message
+     * @param string|null $type Type of message
      *
      * @return static
      */
