@@ -3,6 +3,7 @@
 [![Latest Version](https://img.shields.io/packagist/v/berlioz/flash-bag.svg?style=flat-square)](https://github.com/BerliozFramework/FlashBag/releases)
 [![Software license](https://img.shields.io/github/license/BerliozFramework/FlashBag.svg?style=flat-square)](https://github.com/BerliozFramework/FlashBag/blob/develop/LICENSE)
 [![Build Status](https://img.shields.io/travis/com/BerliozFramework/FlashBag/master.svg?style=flat-square)](https://travis-ci.com/BerliozFramework/FlashBag)
+[![Build Status](https://img.shields.io/github/workflow/status/BerliozFramework/FlashBag/Tests/main.svg?style=flat-square)](https://github.com/BerliozFramework/FlashBag/actions/workflows/tests.yml?query=branch%3Amain)
 [![Quality Grade](https://img.shields.io/codacy/grade/9f0ac8ab057549ce95d0dda7d29fa909/master.svg?style=flat-square)](https://www.codacy.com/manual/BerliozFramework/FlashBag)
 [![Total Downloads](https://img.shields.io/packagist/dt/berlioz/flash-bag.svg?style=flat-square)](https://packagist.org/packages/berlioz/flash-bag)
 
